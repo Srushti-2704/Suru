@@ -1,0 +1,152 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2e3b4e;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+.login-container {
+    background-color: #394958;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px 30px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.logo img {
+    max-width: 150px;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+.input-wrapper input {
+    border: none;
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    border-radius: 4px;
+    margin-left: 0; /* Remove space between input and icon */
+}
+
+.input-wrapper .icon {
+    font-size: 28px;
+    color: #888;
+    background-color: #28a745;
+    margin-right: 0; /* Remove space between icon and input */
+}
+
+.input-wrapper .icon-password {
+    font-size: 28px;
+    color: #888;
+    background-color: yellow;
+    margin-right: 0; /* Remove space between icon and input */
+}
+
+.toggle-password {
+    background: rgb(92, 92, 196);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    margin-left: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password i {
+    font-size: 20px;
+    color: white;
+}
+
+.input-wrapper input:focus {
+    border-color: teal;
+}
+
+.horizontal-line-container {
+    width: 100%;
+    max-width: 600px; /* Set the max width for the container */
+    margin: 20px auto; /* Center the container horizontally */
+    position: relative;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: #888; /* Set the line color */
+    border: none;
+    margin: 0; /* No margin between lines */
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between; /* Buttons aligned to corners */
+    align-items: center;
+    padding: 10px 0; /* Space between buttons and lines */
+}
+
+.btn-lostpassword {
+    padding: 10px 15px;
+    background-color: rgb(87, 87, 199);
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    white-space: nowrap; /* Prevent text wrapping */
+    transition: background-color 0.3s ease;
+}
+
+.btn-lostpassword:hover {
+    background-color: rgb(67, 67, 189);
+}
+
+.btn-login {
+    padding: 10px 15px;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    white-space: nowrap; /* Prevent text wrapping */
+    transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #218838;
+}
+
+
+.register-link {
+    margin-top: 20px;
+}
+
+.register-link a {
+    color: white;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}

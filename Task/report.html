@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receipt Report</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="report.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h4 class="sidebar-title">Filters</h4>
+    <div class="sidebar-section">
+      <h5 onclick="toggleSection('dateSection')"><i class="fas fa-calendar-alt"></i> Date Range</h5>
+      <div id="dateSection" class="sidebar-content">
+        <div class="form-group">
+          <label for="fromDate">From Date:</label>
+          <input type="date" id="fromDate" class="form-control" value="2025-01-01">
+        </div>
+        <div class="form-group">
+          <label for="toDate">To Date:</label>
+          <input type="date" id="toDate" class="form-control" value="2025-12-31">
+        </div>
+      </div>
+    </div>
+
+    <div class="dropdown-container">
+      <label for="recipientSelected">
+        <i class="fa fa-users"></i> Recipient
+      </label>
+      <input type="text" id="recipientSelected" readonly value="All" class="form-control" onclick="toggleDropdown('recipientDropdown')">
+      <div class="dropdown" id="recipientDropdown" style="display: none;">
+        <label>
+          <input type="checkbox" class="recipient-checkbox" value="All" onclick="handleCheckboxClick('recipient', this)"> All
+        </label>
+        <label>
+          <input type="checkbox" class="recipient-checkbox" value="John Doe" onclick="handleCheckboxClick('recipient', this)"> John Doe
+        </label>
+        <label>
+          <input type="checkbox" class="recipient-checkbox" value="Jane Smith" onclick="handleCheckboxClick('recipient', this)"> Jane Smith
+        </label>
+        <label>
+          <input type="checkbox" class="recipient-checkbox" value="David Johnson" onclick="handleCheckboxClick('recipient', this)"> David Johnson
+        </label>
+        <label>
+          <input type="checkbox" class="recipient-checkbox" value="David Johnson" onclick="handleCheckboxClick('recipient', this)"> Emily White
+        </label>
+      </div>
+    </div>
+    
+    <div class="dropdown-container">
+      <label for="portfolioSelected">
+        <i class="fa fa-briefcase"></i> Portfolio
+      </label>
+      <input type="text" id="portfolioSelected" readonly value="All" class="form-control" onclick="toggleDropdown('portfolioDropdown')">
+      <div class="dropdown" id="portfolioDropdown" style="display: none;">
+        <label>
+          <input type="checkbox" class="portfolio-checkbox" value="All" onclick="handleCheckboxClick('portfolio', this)"> All
+        </label>
+        <label>
+          <input type="checkbox" class="portfolio-checkbox" value="Portfolio A" onclick="handleCheckboxClick('portfolio', this)"> PAN
+        </label>
+        <label>
+          <input type="checkbox" class="portfolio-checkbox" value="Portfolio B" onclick="handleCheckboxClick('portfolio', this)"> Mobile Repairing
+        </label>
+        <label>
+          <input type="checkbox" class="portfolio-checkbox" value="Portfolio C" onclick="handleCheckboxClick('portfolio', this)"> Real Estate
+        </label>
+        <label>
+          <input type="checkbox" class="portfolio-checkbox" value="Portfolio C" onclick="handleCheckboxClick('portfolio', this)"> Personal Savings
+        </label>
+      </div>
+    </div>
+    
+    <button type="button" class="btn custom-btn mt-3 w-100" onclick="generateReport()">Generate Report</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="header">
+      <h2 class="text-center mb-4">📊 Recipient Report</h2>
+    </div>
+    
+    <div class="report-container">
+      <h3 class="report-title">Generated Report</h3><br>
+      <div class="export-options">
+        <button class="btn btn-success" onclick="exportToExcel()">Export to Excel</button>
+      </div><br>
+      <div class="table-responsive">
+        <div id="reportContent" class="mt-3"></div>
+      </div>
+    </div>
+  </div>
+  
+
+  <script src="report.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+</body>
+</html>
