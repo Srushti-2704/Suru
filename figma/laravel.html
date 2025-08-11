@@ -1,0 +1,216 @@
+@extends('admin.layouts.layout')
+
+@section('content')
+<div class="col-12 grid-margin stretch-card">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Edit User</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ route('user.update', $user->id) }}" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
+                <div class="row">
+                    {{-- Name --}}
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="name">Full Name <span class="text-danger">*</span></label>
+                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                            name="name" value="{{ old('name', $user->name) }}" required autofocus>
+                        @error('name') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+
+                    {{-- Email --}}
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="email">Email Address <span class="text-danger">*</span></label>
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                            name="email" value="{{ old('email', $user->email) }}" required>
+                        @error('email') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+
+                    {{-- Gender --}}
+                    <div class="form-group col-md-6 mb-3">
+                        <label class="d-block">Gender <span class="text-danger">*</span></label>
+                        <div class="d-flex gap-3">
+                            @foreach (['male' => 'Male', 'female' => 'Female', 'other' => 'Other'] as $val => $label)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" value="{{ $val }}"
+                                        {{ old('gender', $user->gender) == $val ? 'checked' : '' }}>
+                                    <label class="form-check-label">{{ $label }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                        @error('gender') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+
+                    {{-- Status --}}
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="status">Status <span class="text-danger">*</span></label>
+                        <select name="status" id="status" class="form-select" required>
+                            <option value="1" {{ old('status', $user->status) == 1 ? 'selected' : '' }}>Active</option>
+                            <option value="0" {{ old('status', $user->status) == 0 ? 'selected' : '' }}>Inactive</option>
+                        </select>
+                        @error('status') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+
+                    {{-- Country --}}
+                    <div class="form-group col-md-4 mb-3">
+                        <label for="country">Country <span class="text-danger">*</span></label>
+                        <select name="country_id" id="country" class="form-select" required>
+                            <option value="">-- Select Country --</option>
+                            @foreach ($countries as $country)
+                                <option value="{{ $country->id }}"
+                                    {{ old('country_id', $user->country_id) == $country->id ? 'selected' : '' }}>
+                                    {{ $country->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('country_id') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+
+                    {{-- State --}}
+                    <div class="form-group col-md-4 mb-3">
+                        <label for="state">State <span class="text-danger">*</span></label>
+                        <select name="state_id" id="state" class="form-select" required>
+                            <option value="">-- Select State --</option>
+                            @if($states ?? false)
+                                @foreach($states as $state)
+                                    <option value="{{ $state->id }}"
+                                        {{ old('state_id', $user->state_id) == $state->id ? 'selected' : '' }}>
+                                        {{ $state->name }}
+                                    </option>
+                                @endforeach
+                            @endif
+                        </select>
+                        @error('state_id') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+
+                    {{-- City --}}
+                    <div class="form-group col-md-4 mb-3">
+                        <label for="city">City <span class="text-danger">*</span></label>
+                        <select name="city_id" id="city" class="form-select" required>
+                            <option value="">-- Select City --</option>
+                            @if($cities ?? false)
+                                @foreach($cities as $city)
+                                    <option value="{{ $city->id }}"
+                                        {{ old('city_id', $user->city_id) == $city->id ? 'selected' : '' }}>
+                                        {{ $city->name }}
+                                    </option>
+                                @endforeach
+                            @endif
+                        </select>
+                        @error('city_id') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+
+                    {{-- Date of Birth --}}
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="date_of_birth">Date of Birth</label>
+                        <input id="date_of_birth" type="date"
+                            class="form-control @error('date_of_birth') is-invalid @enderror" name="date_of_birth"
+                            value="{{ old('date_of_birth', $user->date_of_birth) }}">
+                        @error('date_of_birth') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+
+                    {{-- User Type --}}
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="user_type">User Type <span class="text-danger">*</span></label>
+                        <select name="user_type" id="user_type" class="form-select" required>
+                            <option value="0" {{ old('user_type', $user->user_type ?? '') == 0 ? 'selected' : '' }}>Reader</option>
+                            <option value="1" {{ old('user_type', $user->user_type ?? '') == 1 ? 'selected' : '' }}>Giver</option>
+                            <option value="2" {{ old('user_type', $user->user_type ?? '') == 2 ? 'selected' : '' }}>Admin</option>
+                        </select>
+                        @error('user_type') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+
+                    {{-- Profile Image --}}
+                    <div class="form-group col-md-12 mb-3">
+                        <label for="profile_image">Profile Image</label>
+                        <input type="file" class="form-control" id="profile_image" name="profile_image"
+                            accept="image/*" onchange="previewImage(event)">
+                        <div class="mt-3">
+                            <img id="preview"
+                                src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) : '#' }}"
+                                alt="Image Preview"
+                                class="img-thumbnail shadow-sm"
+                                style="{{ $user->profile_image ? '' : 'display:none;' }} max-height: 180px;">
+                        </div>
+                        @error('profile_image') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+                </div>
+
+                <div class="form-group text-center mt-4">
+                    <button type="submit" class="btn btn-lg btn-primary w-50">Update User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+
+@push('scripts')
+<script>
+    function previewImage(event) {
+        const preview = document.getElementById('preview');
+        const file = event.target.files[0];
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+        } else {
+            preview.style.display = 'none';
+        }
+    }
+
+    $(document).ready(function () {
+        function resetSelect($select, placeholder) {
+            $select.empty().append('<option value="">' + placeholder + '</option>');
+        }
+
+        $('#country').on('change', function () {
+            const countryID = $(this).val();
+            const $state = $('#state');
+            const $city = $('#city');
+
+            resetSelect($state, '-- Select State --');
+            resetSelect($city, '-- Select City --');
+
+            if (!countryID) return;
+
+            $.ajax({
+                url: '{{ route('get.states', ['country_id' => ':country_id']) }}'.replace(':country_id', countryID),
+                type: 'GET',
+                dataType: 'json',
+                success: function (states) {
+                    $.each(states, function (index, state) {
+                        $state.append('<option value="' + state.id + '">' + state.name + '</option>');
+                    });
+                },
+                error: function () {
+                    alert('Unable to fetch states. Please try again.');
+                }
+            });
+        });
+
+        $('#state').on('change', function () {
+            const stateID = $(this).val();
+            const $city = $('#city');
+
+            resetSelect($city, '-- Select City --');
+
+            if (!stateID) return;
+
+            $.ajax({
+                url: '{{ route('get.cities', ['state_id' => ':state_id']) }}'.replace(':state_id', stateID),
+                type: 'GET',
+                dataType: 'json',
+                success: function (cities) {
+                    $.each(cities, function (index, city) {
+                        $city.append('<option value="' + city.id + '">' + city.name + '</option>');
+                    });
+                },
+                error: function () {
+                    alert('Unable to fetch cities. Please try again.');
+                }
+            });
+        });
+    });
+</script>
+@endpush
